@@ -1,0 +1,11 @@
+{
+  "name": "CakePraha",
+  "url": "http://appcake.co/Dev/CakePraha",
+  "license": "MIT",
+  "tags": ["AppCake", "internationalization", "localization", "openfl", "mobile", "desktop", "crossplatform", "cross-platform"],
+  "description": "Small localization lib",
+  "version": "0.1.0",
+  "releasenote": "",
+  "contributors": ["JuliusGromyko"],
+  "dependencies": { "lime": "", "openfl": "" }
+}
