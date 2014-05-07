@@ -11,6 +11,7 @@ class Main extends Sprite {
 		super ();
 
 		trace("System locale: "+CakePraha.locale);
+		trace("Available locales: "+CakePraha.getLocales());
 		CakePraha.locale="Eng";
 		trace("Now switched to locale: "+CakePraha.locale);
 		trace("Sample string 1: "+CakePraha.getLine("test",["world!","Yep!"]));

@@ -17,14 +17,14 @@ class CakePraha {
 	public static var paths:Array<String> = ["i18n","i18","localization","locales","lang","langs"];
 
 	// LIST OF AVAILABLE LOCALES
-	public static inline function getLocales():Array<String> { return  _locales; }
+	public static inline function getLocales():Array<String> { if(!_init) _loadLocale(locale); return  _locales; }
 
 	// RETURN LOCALIZED STRING
 	public static inline function getLine(name:String, ?keys:Array<String>):String
 	{
 		if(!_init) _loadLocale(locale);
-		if(!_lines.exists(name)) return name;
-		var line:String = _lines.get(name);
+		if(!_lines.exists(name.toLowerCase())) return name;
+		var line:String = _lines.get(name.toLowerCase());
 
 		if(keys!=null){
 			var i:Int = 0;
@@ -72,9 +72,32 @@ class CakePraha {
 		return false;
 	}
 
+	// Check for index of locales
+	private static var _indexLoaded:Bool = false;
+	private static function _loadIndex()
+	{
+		if(_indexLoaded) return;
+		var indexPath:String = "";
+		var foundPath:String = "";
+		for(s in paths){
+			indexPath = "assets/"+s+"/index";
+			if(openfl.Assets.exists(indexPath)) foundPath = indexPath;
+			if(openfl.Assets.exists(indexPath+".txt")) foundPath = indexPath+".txt";
+			if(openfl.Assets.exists(indexPath+".csv")) foundPath = indexPath+".csv";
+		}
+
+		if(foundPath!=""){
+			for(l in openfl.Assets.getText(foundPath).split(",")){
+				_localeAvailable(_unifyLocaleName(StringTools.replace(l,"\"","")));
+			}
+		}
+		_indexLoaded = true;
+	}
+
 	// Loading localization strings
 	private static function _loadLocale(locale:String):Bool
 	{
+		_loadIndex();
 		var localePath:String = "";
 
 		for(s in paths){
@@ -125,7 +148,7 @@ class CakePraha {
 	private static var _lines:haxe.ds.StringMap<String> = new haxe.ds.StringMap<String>();
 
 	// Unify locale name
-	private static function _unifyLocaleName(locale:String):String { return locale.toLowerCase().substring(0,2); }
+	private static function _unifyLocaleName(locale:String):String { return StringTools.trim(locale.toLowerCase()).substring(0,2); }
 
 	// Is default locale initialized?
 	private static var _init:Bool=false;
