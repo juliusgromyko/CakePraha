@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project>
 	
-	<meta title="CakePraha" package="com.example.cakepraha" version="1.0.0" company="Company Name" />
+	<meta title="CakePraha Sample" package="com.example.cakepraha" version="1.0.0" company="AppCake" />
 	<app main="Main" path="Export" file="CakePraha" />
 	
 	<source path="Source" />
