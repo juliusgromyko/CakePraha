@@ -45,7 +45,10 @@ class CakePraha {
 		if(_localeAvailable(value)) if(_loadLocale(value)) _locale = value;
 		return _locale;
 	}
-	private static inline function get_locale():String { return _locale; }
+	private static inline function get_locale():String {
+		if(_localeAvailable(_locale)==false) locale = "en";
+		return _locale;
+	}
 
 	private static var _isRightToLeft:Bool = false;
 	private static inline function get_isRightToLeft():Bool { return _isRightToLeft; }
